@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  leave-api:
+    build: ./services/leave_api
+    ports:
+      - "8000:8000"
+
+  grpc-service:
+    build: ./services/grpc_server
+    ports:
+      - "50051:50051"
+    depends_on:
+      - leave-api
+
+  gateway:
+    build: ./services/gateway
+    ports:
+      - "8001:8001"
+    depends_on:
+      - grpc-service
+
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"

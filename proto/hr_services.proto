@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+service LeaveService {
+  rpc GetLeaveBalance (UserRequest) returns (LeaveResponse);
+  rpc ApplyLeave (LeaveApplication) returns (LeaveResponse);
+}
+
+message UserRequest {
+  string user_id = 1;
+}
+
+message LeaveApplication {
+  string user_id = 1;
+  int32 days = 2;
+}
+
+message LeaveResponse {
+  string status = 1;
+  string message = 2;
+}
